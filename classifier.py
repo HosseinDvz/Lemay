@@ -38,6 +38,9 @@ class WebsiteClassifier:
             device=-1 # keep using cpu if starting the app with gunicorn
         )
 
+        # Uncomment the following if you cloned the notebook and do not have the model in the above folder
+        # self.classifier = pipeline( "zero-shot-classification", model="facebook/bart-large-mnli", device=-1)  # Use CPU while using gunicorn
+
     def clean_text(self, text: str) -> str:
         """
         Cleans input text by removing common HTTP error codes and collapsing whitespace.
