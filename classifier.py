@@ -26,6 +26,7 @@ class WebsiteClassifier:
         # === Model Path Configuration ===
         # Use the following path for local development (relative to project root)
         MODEL_PATH = "./model/models--facebook--bart-large-mnli/snapshots/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce"
+        #model/models--facebook--bart-large-mnli/snapshots/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce
 
         # Use this absolute path when running inside the Docker container (e.g., AWS deployment)
         # MODEL_PATH = "/app/model/models--facebook--bart-large-mnli/snapshots/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce"

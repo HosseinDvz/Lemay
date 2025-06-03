@@ -1,7 +1,27 @@
+"""
+Website Classification Worker (AWS ECS + SQS + S3)
+
+This script runs inside a Fargate container and polls an SQS queue for messages 
+containing S3 paths to input CSVs. For each CSV:
+
+1. Downloads it from S3.
+2. Performs zero-shot classification on each row using Hugging Face pipeline.
+3. Uploads the labeled result to a separate S3 path.
+
+Expected SQS message format:
+    { "s3_path": "lemay/outputs_sqs/filename.csv" }
+
+Output is saved to:
+    s3://lemay/labeled_websites/
+
+Dependencies: boto3, pandas, transformers, torch
+"""
+
 import boto3, json, pandas as pd
 from classifier import WebsiteClassifier
 import os
 import time
+
 
 # AWS clients
 sqs = boto3.client("sqs", region_name="us-east-1")
