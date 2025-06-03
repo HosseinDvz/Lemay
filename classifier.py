@@ -73,7 +73,7 @@ class WebsiteClassifier:
         combined = f"{clean_site}: {clean_text}"
         if not clean_text:
             return "unknown"
-        result = self.classifier(combined[:1000], self.labels)  # Hugging Face models have token limits
+        result = self.classifier(combined[:1000], self.labels) 
         return result["labels"][0]
 
     def add_label_column(self, input_csv: str, output_csv: str):
