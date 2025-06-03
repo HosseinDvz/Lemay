@@ -1,6 +1,6 @@
 import pandas as pd
 import re
-from transformers import pipeline
+from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer
 from tqdm import tqdm
 
 class WebsiteClassifier:
@@ -22,7 +22,20 @@ class WebsiteClassifier:
             "educational", "news", "entertainment", "shopping",
             "social media", "health", "finance", "sports"
         ]
-        self.classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+        
+        # === Model Path Configuration ===
+        # Use the following path for local development (relative to project root)
+        MODEL_PATH = "./model/models--facebook--bart-large-mnli/snapshots/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce"
+
+        # Use this absolute path when running inside the Docker container (e.g., AWS deployment)
+        # MODEL_PATH = "/app/model/models--facebook--bart-large-mnli/snapshots/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce"
+
+        self.classifier = pipeline(
+            "zero-shot-classification",
+            model=MODEL_PATH,
+            tokenizer=MODEL_PATH,
+            device=-1 # keep using cpu if starting the app with gunicorn
+        )
 
     def clean_text(self, text: str) -> str:
         """
